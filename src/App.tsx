@@ -1,10 +1,13 @@
+import { useState } from 'react';
+
 function App() {
+
+  const [input, setInput] = useState<string>('')
+  const [code, setCode] = useState<string>('')
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    const input = e.currentTarget.elements.namedItem('text-area') as HTMLTextAreaElement
-    const output = e.currentTarget.nextElementSibling as HTMLPreElement
-    output.textContent = input.value
+    setCode(input);
   }
 
   return (
@@ -13,12 +16,12 @@ function App() {
         <div>
           <label htmlFor="text-area">Input:</label>
         </div>
-        <textarea name="text-area" id="text-area" />
+        <textarea name="text-area" id="text-area" value={input} onChange={e => setInput(e.target.value)}/>
         <div>
           <button type="submit">Submit</button>
         </div>
       </form>
-      <pre>Poo</pre>
+      <pre>{code}</pre>
     </div>
 
   )
