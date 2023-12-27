@@ -42,12 +42,6 @@ function App() {
 
     setCode(result.outputFiles[0].text);
 
-    // const result = await esbuild.transform(input, {
-    //   loader: 'jsx',
-    //   target: 'es2015'
-    // });
-    
-    //setCode(result.code);
   }
 
   return (
