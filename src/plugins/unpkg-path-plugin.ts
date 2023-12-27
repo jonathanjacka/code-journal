@@ -12,7 +12,7 @@ export const unpkgPathPlugin = () => {
             return { path: args.path, namespace: 'a' };
         } 
 
-        //handles relative paths in a module
+        //handles relative and nested paths in a module
         if(args.path.includes('./') || args.path.includes('../')) {
             return {
                 namespace: 'a',
