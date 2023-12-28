@@ -17,14 +17,16 @@ export const fetchPlugin = (input: string) => {
                 };
             });
 
-            build.onLoad({ filter: /.css$/ }, async (args: esbuild.OnLoadArgs) => {
-
+            build.onLoad( { filter: /.*/}, async (args: esbuild.OnLoadArgs) => {
                 const cachedResult = await fileCache.getItem<esbuild.OnLoadResult>(args.path); 
-    
+
                 if(cachedResult) {
                     return cachedResult;
                 }
-        
+            }); 
+
+            build.onLoad({ filter: /.css$/ }, async (args: esbuild.OnLoadArgs) => {
+
                 const response = await axios.get(args.path);
 
                 const formattedData = response.data
@@ -51,12 +53,6 @@ export const fetchPlugin = (input: string) => {
             });
 
             build.onLoad({ filter: /.*/ }, async (args: esbuild.OnLoadArgs) => {
- 
-            const cachedResult = await fileCache.getItem<esbuild.OnLoadResult>(args.path); 
-    
-            if(cachedResult) {
-                return cachedResult;
-            }
     
             const response = await axios.get(args.path);
 
