@@ -8,7 +8,6 @@ const fileCache = localForage.createInstance({
 
 export const fetchPlugin = (input: string) => {
     return {
-
         name: 'fetch-plugin',
         setup(build: esbuild.PluginBuild) {
             build.onLoad({ filter: /.*/ }, async (args: esbuild.OnLoadArgs) => {
@@ -27,9 +26,24 @@ export const fetchPlugin = (input: string) => {
             }
     
             const response = await axios.get(args.path);
+
+            const fileType = args.path.match(/.css$/) ? 'css' : 'jsx';
+            const formattedData = response.data
+                .replace(/\n/g, '')
+                .replace(/"/g, '\\"')
+                .replace(/'/g, "\\'");
+
+            const contents = fileType === 'css' ? 
+                `
+                    const style = document.createElement('style');
+                    style.innerText = '${formattedData}';
+                    document.head.appendChild(style);
+                ` 
+                : response.data;
+
             const result: esbuild.OnLoadResult = {
                 loader: 'jsx',
-                contents: response.data,
+                contents,
                 resolveDir: new URL('./', response.request.responseURL).pathname
             }
     

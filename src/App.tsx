@@ -15,7 +15,6 @@ function App() {
     await esbuild.initialize({
       wasmURL: '/esbuild.wasm'
     })
-    console.log('esbuild initialized');
   }
 
   useEffect(() => {
@@ -28,7 +27,6 @@ function App() {
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     serviceInitialized.current && setCode(input);
-    console.log(input);
 
     const result = await esbuild.build({
       entryPoints: ['index.js'],
