@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import esbuild from 'esbuild-wasm';
 
 import { unpkgPathPlugin } from './plugins/unpkg-path-plugin';
+import { fetchPlugin } from './plugins/fetch-plugin';
 
 function App() {
 
@@ -12,9 +13,8 @@ function App() {
 
   const startService = async () => {
     await esbuild.initialize({
-      wasmURL: '/esbuild.wasm'
+      wasmURL: 'https://unpkg.com/esbuild-wasm/esbuild.wasm'
     })
-    console.log('esbuild initialized');
   }
 
   useEffect(() => {
@@ -27,13 +27,15 @@ function App() {
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     serviceInitialized.current && setCode(input);
-    console.log(input);
 
     const result = await esbuild.build({
       entryPoints: ['index.js'],
       bundle: true,
       write: false,
-      plugins: [unpkgPathPlugin(input)],
+      plugins: [
+        unpkgPathPlugin(),
+        fetchPlugin(input)
+      ],
       define: {
         'process.env.NODE_ENV': '"production"',
         global: 'window'
