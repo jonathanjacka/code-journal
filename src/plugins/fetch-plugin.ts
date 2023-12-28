@@ -10,15 +10,48 @@ export const fetchPlugin = (input: string) => {
     return {
         name: 'fetch-plugin',
         setup(build: esbuild.PluginBuild) {
+            build.onLoad({ filter: /^index\.js$/ }, () => {
+                return {
+                    loader: 'jsx',
+                    contents: input,
+                };
+            });
+
+            build.onLoad({ filter: /.css$/ }, async (args: esbuild.OnLoadArgs) => {
+
+                const cachedResult = await fileCache.getItem<esbuild.OnLoadResult>(args.path); 
+    
+                if(cachedResult) {
+                    return cachedResult;
+                }
+        
+                const response = await axios.get(args.path);
+
+                const formattedData = response.data
+                    .replace(/\n/g, '')
+                    .replace(/"/g, '\\"')
+                    .replace(/'/g, "\\'");
+
+                const contents =  
+                    `
+                        const style = document.createElement('style');
+                        style.innerText = '${formattedData}';
+                        document.head.appendChild(style);
+                    `;
+
+                const result: esbuild.OnLoadResult = {
+                    loader: 'jsx',
+                    contents,
+                    resolveDir: new URL('./', response.request.responseURL).pathname
+                }
+        
+                await fileCache.setItem(args.path, result);
+                return result;
+
+            });
+
             build.onLoad({ filter: /.*/ }, async (args: esbuild.OnLoadArgs) => {
  
-            if (args.path === 'index.js') {
-              return {
-                loader: 'jsx',
-                contents: input,
-              };
-            } 
-    
             const cachedResult = await fileCache.getItem<esbuild.OnLoadResult>(args.path); 
     
             if(cachedResult) {
@@ -27,23 +60,9 @@ export const fetchPlugin = (input: string) => {
     
             const response = await axios.get(args.path);
 
-            const fileType = args.path.match(/.css$/) ? 'css' : 'jsx';
-            const formattedData = response.data
-                .replace(/\n/g, '')
-                .replace(/"/g, '\\"')
-                .replace(/'/g, "\\'");
-
-            const contents = fileType === 'css' ? 
-                `
-                    const style = document.createElement('style');
-                    style.innerText = '${formattedData}';
-                    document.head.appendChild(style);
-                ` 
-                : response.data;
-
             const result: esbuild.OnLoadResult = {
                 loader: 'jsx',
-                contents,
+                contents: response.data,
                 resolveDir: new URL('./', response.request.responseURL).pathname
             }
     
