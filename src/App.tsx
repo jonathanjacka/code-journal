@@ -7,7 +7,7 @@ import { fetchPlugin } from './plugins/fetch-plugin';
 function App() {
 
   const serviceInitialized = useRef(false);
-  const iframeRef = useRef<any>();
+  const iframeRef = useRef<HTMLIFrameElement>(null);
 
   const [input, setInput] = useState<string>('')
   const [code, setCode] = useState<string>('')
@@ -43,8 +43,9 @@ function App() {
       }
     });
 
-    iframeRef.current.contentWindow.postMessage(result.outputFiles[0].text, '*');
-    //setCode(result.outputFiles[0].text);
+    if(iframeRef.current && iframeRef.current.contentWindow) {
+      iframeRef.current.contentWindow.postMessage(result.outputFiles[0].text, '*')
+    }    //setCode(result.outputFiles[0].text);
   }
 
   const html = `
@@ -54,7 +55,13 @@ function App() {
         <div id="root"></div>
         <script>
           window.addEventListener('message', (event) => {
-            eval(event.data);
+            try{
+              eval(event.data);
+            }catch(err){
+              const root = document.querySelector('#root');
+              root.innerHTML = '<div style="color: red;"><h4>Runtime Error</h4>' + err + '</div>';
+              console.error(err);
+            }
           }, false);
         </script>
     </html>
