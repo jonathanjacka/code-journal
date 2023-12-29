@@ -7,9 +7,9 @@ import { fetchPlugin } from './plugins/fetch-plugin';
 function App() {
 
   const serviceInitialized = useRef(false);
+  const iframeRef = useRef<HTMLIFrameElement>(null);
 
   const [input, setInput] = useState<string>('')
-  const [code, setCode] = useState<string>('')
 
   const startService = async () => {
     await esbuild.initialize({
@@ -26,7 +26,12 @@ function App() {
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    serviceInitialized.current && setCode(input);
+
+    if(!serviceInitialized.current) {
+      return;
+    }
+
+    iframeRef.current && (iframeRef.current.srcdoc = html);
 
     const result = await esbuild.build({
       entryPoints: ['index.js'],
@@ -42,9 +47,29 @@ function App() {
       }
     });
 
-    setCode(result.outputFiles[0].text);
-
+    if(iframeRef.current && iframeRef.current.contentWindow) {
+      iframeRef.current.contentWindow.postMessage(result.outputFiles[0].text, '*')
+    }    
   }
+
+  const html = `
+    <html>
+      <head></head>
+      <body>
+        <div id="root"></div>
+        <script>
+          window.addEventListener('message', (event) => {
+            try{
+              eval(event.data);
+            }catch(err){
+              const root = document.querySelector('#root');
+              root.innerHTML = '<div style="color: red;"><h4>Runtime Error</h4>' + err + '</div>';
+              console.error(err);
+            }
+          }, false);
+        </script>
+    </html>
+  `;
 
   return (
     <div>
@@ -57,7 +82,7 @@ function App() {
           <button type="submit">Submit</button>
         </div>
       </form>
-      <pre>{code}</pre>
+      <iframe title='code-output' ref={iframeRef} sandbox='allow-scripts' srcDoc={html}></iframe>
     </div>
 
   )
