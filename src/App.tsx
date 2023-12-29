@@ -43,8 +43,13 @@ function App() {
     });
 
     setCode(result.outputFiles[0].text);
-
   }
+
+  const html = `
+    <script>
+      ${code}
+    </script>
+  `;
 
   return (
     <div>
@@ -58,6 +63,7 @@ function App() {
         </div>
       </form>
       <pre>{code}</pre>
+      <iframe sandbox='allow-scripts' srcDoc={html}></iframe>
     </div>
 
   )
