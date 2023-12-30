@@ -75,7 +75,7 @@ function App() {
 
   return (
     <div>
-      <CodeEditor />
+      <CodeEditor onChange={(value) => setInput(value)}/>
       <form onSubmit={onSubmit}>
         <div>
           <label htmlFor="text-area">Input:</label>
