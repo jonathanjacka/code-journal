@@ -26,6 +26,7 @@ const CodeEditor = ({height, defaultLanguage, defaultValue, darkMode, onChange}:
         theme={darkMode === false ? 'light' : 'vs-dark'}
         options={
             {
+                tabSize: 2,
                 wordWrap: 'on',
                 minimap: { enabled: false },
                 showUnused: false,
