@@ -4,6 +4,8 @@ import esbuild from 'esbuild-wasm';
 import { unpkgPathPlugin } from './plugins/unpkg-path-plugin';
 import { fetchPlugin } from './plugins/fetch-plugin';
 
+import CodeEditor from './components/Code-editor';
+
 function App() {
 
   const serviceInitialized = useRef(false);
@@ -73,6 +75,7 @@ function App() {
 
   return (
     <div>
+      <CodeEditor />
       <form onSubmit={onSubmit}>
         <div>
           <label htmlFor="text-area">Input:</label>
