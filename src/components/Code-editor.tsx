@@ -6,6 +6,8 @@ import prettier from 'prettier/standalone';
 import babelPlugin from "prettier/plugins/babel";
 import estreePlugin from "prettier/plugins/estree";
 
+import './code-editor.css';
+
 interface CodeEditorProps {
     height?: string,
     defaultLanguage?: string,
@@ -35,15 +37,13 @@ const CodeEditor = ({height, defaultLanguage, defaultValue, darkMode, onChange}:
                 semi: true,
                 singleQuote: true
             });
-            editorRef.current.setValue(formatted);      
+            editorRef.current.setValue(formatted.replace(/\n$/, ''));      
         }
     }
 
   return (
-    <div>
-        <div>
+    <div className="editor-wrapper">
             <button className="button button-format is-primary is-small" onClick={onFormatClick}>Format</button>
-        </div>
       <Editor
         onMount={onEditorDidMount}
         height={height ? height :'500px'} 
