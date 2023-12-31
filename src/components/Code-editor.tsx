@@ -41,8 +41,8 @@ const CodeEditor = ({height, defaultLanguage, defaultValue, darkMode, onChange}:
 
   return (
     <div>
-        <div className="format-button">
-            <button onClick={onFormatClick}>Format</button>
+        <div>
+            <button className="button button-format is-primary is-small" onClick={onFormatClick}>Format</button>
         </div>
       <Editor
         onMount={onEditorDidMount}

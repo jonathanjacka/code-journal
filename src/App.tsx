@@ -6,6 +6,8 @@ import { fetchPlugin } from './plugins/fetch-plugin';
 
 import CodeEditor from './components/Code-editor';
 
+import 'bulmaswatch/united/bulmaswatch.min.css';
+
 function App() {
 
   const serviceInitialized = useRef(false);

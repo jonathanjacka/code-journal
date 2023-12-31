@@ -13,6 +13,7 @@
     "@monaco-editor/react": "^4.6.0",
     "@types/prettier": "^3.0.0",
     "axios": "^1.6.3",
+    "bulmaswatch": "^0.8.1",
     "esbuild-wasm": "^0.19.10",
     "localforage": "^1.10.0",
     "monaco-editor": "^0.45.0",
