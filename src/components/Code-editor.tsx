@@ -1,4 +1,9 @@
-import Editor, { type OnMount } from "@monaco-editor/react";
+import { useRef } from "react";
+import Editor, { type OnMount, type Monaco } from "@monaco-editor/react";
+
+import prettier from 'prettier/standalone';
+import babelPlugin from "prettier/plugins/babel";
+import estreePlugin from "prettier/plugins/estree";
 
 interface CodeEditorProps {
     height?: string,
@@ -10,14 +15,32 @@ interface CodeEditorProps {
 
 const CodeEditor = ({height, defaultLanguage, defaultValue, darkMode, onChange}: CodeEditorProps) => {
 
+    const editorRef = useRef<any>();
+
     const onEditorDidMount: OnMount = (editor) => {
+        editorRef.current = editor;
         editor.onDidChangeModelContent(() => {
             onChange && onChange(editor.getValue());
-        });
-        
+        }); 
     }
+
+    const onFormatClick = async () => {
+        const unformatted = editorRef.current.getModel().getValue();
+        const formatted = await prettier.format(unformatted, {
+            parser: 'babel',
+            plugins: [babelPlugin, estreePlugin],
+            useTabs: false,
+            semi: true,
+            singleQuote: true
+        });
+        editorRef.current.setValue(formatted);
+    }
+
   return (
     <div>
+        <div className="format-button">
+            <button onClick={onFormatClick}>Format</button>
+        </div>
       <Editor
         onMount={onEditorDidMount}
         height={height ? height :'500px'} 
