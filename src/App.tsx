@@ -4,6 +4,10 @@ import esbuild from 'esbuild-wasm';
 import { unpkgPathPlugin } from './plugins/unpkg-path-plugin';
 import { fetchPlugin } from './plugins/fetch-plugin';
 
+import CodeEditor from './components/Code-editor';
+
+import 'bulmaswatch/united/bulmaswatch.min.css';
+
 function App() {
 
   const serviceInitialized = useRef(false);
@@ -26,7 +30,6 @@ function App() {
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-
     if(!serviceInitialized.current) {
       return;
     }
@@ -73,6 +76,7 @@ function App() {
 
   return (
     <div>
+      <CodeEditor onChange={(value) => setInput(value)}/>
       <form onSubmit={onSubmit}>
         <div>
           <label htmlFor="text-area">Input:</label>

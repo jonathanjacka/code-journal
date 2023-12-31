@@ -10,9 +10,19 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@monaco-editor/react": "^4.6.0",
+    "@rollup/plugin-inject": "^5.0.5",
+    "@types/jscodeshift": "^0.11.11",
+    "@types/node": "^20.10.6",
+    "@types/prettier": "^3.0.0",
     "axios": "^1.6.3",
+    "bulmaswatch": "^0.8.1",
     "esbuild-wasm": "^0.19.10",
+    "jscodeshift": "^0.15.1",
     "localforage": "^1.10.0",
+    "monaco-editor": "^0.45.0",
+    "monaco-jsx-highlighter": "^2.0.4",
+    "prettier": "^3.1.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
