@@ -30,7 +30,6 @@ function App() {
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-
     if(!serviceInitialized.current) {
       return;
     }
