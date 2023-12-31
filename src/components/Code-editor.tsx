@@ -1,5 +1,6 @@
 import { useRef } from "react";
-import Editor, { type OnMount, type Monaco } from "@monaco-editor/react";
+import Editor, { type OnMount } from "@monaco-editor/react";
+import { editor as monacoEditor } from 'monaco-editor';
 
 import prettier from 'prettier/standalone';
 import babelPlugin from "prettier/plugins/babel";
@@ -15,7 +16,7 @@ interface CodeEditorProps {
 
 const CodeEditor = ({height, defaultLanguage, defaultValue, darkMode, onChange}: CodeEditorProps) => {
 
-    const editorRef = useRef<any>();
+    const editorRef = useRef<monacoEditor.IStandaloneCodeEditor | null>(null);
 
     const onEditorDidMount: OnMount = (editor) => {
         editorRef.current = editor;
@@ -25,15 +26,17 @@ const CodeEditor = ({height, defaultLanguage, defaultValue, darkMode, onChange}:
     }
 
     const onFormatClick = async () => {
-        const unformatted = editorRef.current.getModel().getValue();
-        const formatted = await prettier.format(unformatted, {
-            parser: 'babel',
-            plugins: [babelPlugin, estreePlugin],
-            useTabs: false,
-            semi: true,
-            singleQuote: true
-        });
-        editorRef.current.setValue(formatted);
+        if(editorRef.current) {
+            const unformatted = editorRef.current.getModel()?.getValue();
+            const formatted = await prettier.format(unformatted || '', {
+                parser: 'babel',
+                plugins: [babelPlugin, estreePlugin],
+                useTabs: false,
+                semi: true,
+                singleQuote: true
+            });
+            editorRef.current.setValue(formatted);      
+        }
     }
 
   return (
