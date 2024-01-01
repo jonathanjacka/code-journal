@@ -24,8 +24,10 @@ function CodeCell() {
     return (
         <Resizable direction='vertical'>
             <div style={CodeCellStyles}>
-            <CodeEditor onChange={(value) => setInput(value)}/>
-            <Preview code={code}/>
+                <Resizable direction='horizontal'>
+                    <CodeEditor onChange={(value) => setInput(value)}/>
+                </Resizable>
+                <Preview code={code}/>
             </div>
         </Resizable>
   )
