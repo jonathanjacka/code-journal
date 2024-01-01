@@ -1,7 +1,7 @@
 import esbuild from 'esbuild-wasm';
 
-import { unpkgPathPlugin } from '../plugins/unpkg-path-plugin';
-import { fetchPlugin } from '../plugins/fetch-plugin';
+import { unpkgPathPlugin } from './plugins/unpkg-path-plugin';
+import { fetchPlugin } from './plugins/fetch-plugin';
 
 let startService: boolean = false;
 
