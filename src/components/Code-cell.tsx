@@ -4,7 +4,13 @@ import CodeEditor from './Code-editor';
 import Preview from './Preview';
 import Resizable from './Resizable';
 
-import bundler from '../bundler';
+import bundler from '../bundler';''
+
+const CodeCellStyles: React.CSSProperties = {
+    height: '100%',
+    display: 'flex',
+    flexDirection: 'row'
+}
 
 function CodeCell() {
     const [code, setCode] = useState<string>('');
@@ -17,11 +23,8 @@ function CodeCell() {
 
     return (
         <Resizable direction='vertical'>
-            <div>
+            <div style={CodeCellStyles}>
             <CodeEditor onChange={(value) => setInput(value)}/>
-                <div>
-                <button onClick={onSubmit}>Submit</button>
-                </div>
             <Preview code={code}/>
             </div>
         </Resizable>

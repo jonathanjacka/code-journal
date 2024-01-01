@@ -56,7 +56,7 @@ const CodeEditor = ({height, defaultLanguage, defaultValue, darkMode, onChange}:
             <button className="button button-format is-primary is-small" onClick={onFormatClick}>Format</button>
       <Editor
         onMount={onEditorDidMount}
-        height={height ? height :'500px'} 
+        height={height ? height :'100%'} 
         defaultLanguage={defaultLanguage ? defaultLanguage : 'javascript'} 
         defaultValue={defaultValue ? defaultValue : "// write some javascript code..."}
         theme={darkMode === false ? 'light' : 'vs-dark'}
