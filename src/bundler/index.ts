@@ -5,7 +5,7 @@ import { fetchPlugin } from '../plugins/fetch-plugin';
 
 let startService: boolean = false;
 
-export default async (inputCode: string) => {
+const bundler = async (inputCode: string) => {
     if(!startService){
         await esbuild.initialize({
             wasmURL: 'https://unpkg.com/esbuild-wasm/esbuild.wasm'
@@ -29,3 +29,5 @@ export default async (inputCode: string) => {
 
       return result.outputFiles[0].text;
 }
+
+export default bundler;
