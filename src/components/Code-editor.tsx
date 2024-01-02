@@ -6,9 +6,6 @@ import prettier from 'prettier/standalone';
 import babelPlugin from "prettier/plugins/babel";
 import estreePlugin from "prettier/plugins/estree";
 
-// import Highlighter from 'monaco-jsx-highlighter';
-// import codeShift from 'jscodeshift';
-
 import './code-editor.css';
 
 interface CodeEditorProps {
@@ -28,13 +25,6 @@ const CodeEditor = ({height, defaultLanguage, defaultValue, darkMode, onChange}:
         editor.onDidChangeModelContent(() => {
             onChange && onChange(editor.getValue());
         }); 
-        // const highlighter = new Highlighter(
-        //     monacoEditor,
-        //     codeShift,
-        //     editor
-        // );
-
-        // highlighter.highLightOnDidChangeModelContent();
     }
 
     const onFormatClick = async () => {
@@ -56,7 +46,7 @@ const CodeEditor = ({height, defaultLanguage, defaultValue, darkMode, onChange}:
             <button className="button button-format is-primary is-small" onClick={onFormatClick}>Format</button>
       <Editor
         onMount={onEditorDidMount}
-        height={height ? height :'500px'} 
+        height={height ? height :'100%'} 
         defaultLanguage={defaultLanguage ? defaultLanguage : 'javascript'} 
         defaultValue={defaultValue ? defaultValue : "// write some javascript code..."}
         theme={darkMode === false ? 'light' : 'vs-dark'}
