@@ -17,11 +17,13 @@ const BUNDLER_DELAY = 1500;
 function CodeCell() {
     const [code, setCode] = useState<string>('');
     const [input, setInput] = useState<string>('')
+    const [bundleStatus, setBundleStatus] = useState<string>('');
 
     useEffect(() => {
         const timer = setTimeout(async () => {
             const output = await bundler(input);
-            setCode(output);
+            setCode(output.code);
+            setBundleStatus(output.error);
         }, BUNDLER_DELAY);
 
         return () => {
@@ -35,7 +37,7 @@ function CodeCell() {
                 <Resizable direction='horizontal'>
                     <CodeEditor onChange={(value) => setInput(value)}/>
                 </Resizable>
-                <Preview code={code}/>
+                <Preview code={code} bundleStatus={bundleStatus}/>
             </div>
         </Resizable>
   )
