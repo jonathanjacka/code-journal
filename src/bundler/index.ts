@@ -13,7 +13,8 @@ const bundler = async (inputCode: string) => {
         startService = true;
     }
 
-    const result = await esbuild.build({
+    try {
+      const result = await esbuild.build({
         entryPoints: ['index.js'],
         bundle: true,
         write: false,
@@ -26,8 +27,23 @@ const bundler = async (inputCode: string) => {
           global: 'window'
         }
       }); 
-
-      return result.outputFiles[0].text;
+      return {
+        code: result.outputFiles[0].text,
+        error: ''
+      };
+    } catch (error) {
+      if(error instanceof Error) {
+        return {
+          code: '',
+          error: error.message
+        }
+      } else {
+        throw error;
+      }
+      
+    }
+    
+    
 }
 
 export default bundler;
