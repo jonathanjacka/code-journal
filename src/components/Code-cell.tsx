@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import CodeEditor from './Code-editor';
 import Preview from './Preview';
@@ -12,14 +12,22 @@ const CodeCellStyles: React.CSSProperties = {
     flexDirection: 'row'
 }
 
+const BUNDLER_DELAY = 1500;
+
 function CodeCell() {
     const [code, setCode] = useState<string>('');
     const [input, setInput] = useState<string>('')
 
-    const onSubmit = async () => {
-        const output = await bundler(input);
-        setCode(output);
-    }
+    useEffect(() => {
+        const timer = setTimeout(async () => {
+            const output = await bundler(input);
+            setCode(output);
+        }, BUNDLER_DELAY);
+
+        return () => {
+            clearTimeout(timer);
+        }
+    }, [input, code]);
 
     return (
         <Resizable direction='vertical'>

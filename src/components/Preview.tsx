@@ -26,14 +26,17 @@ const html = `
 </html>
 `;
 
-const Preview: React.FC<PreviewProps> = ({code }) => {
+const Preview: React.FC<PreviewProps> = ({ code }) => {
 
     const iframeRef = useRef<HTMLIFrameElement>(null); 
     
     useEffect(() => {
         iframeRef.current && (iframeRef.current.srcdoc = html);
         if(iframeRef.current && iframeRef.current.contentWindow) {
-            iframeRef.current.contentWindow.postMessage(code, '*')
+            //Allows browser to render iframe before sending message
+            setTimeout(() => {
+                iframeRef.current && iframeRef.current.contentWindow?.postMessage(code, '*');
+            }, 50);
           }  
     }, [code]);
 
