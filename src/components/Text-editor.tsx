@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
 import MDEditor from '@uiw/react-md-editor';
 
+import './Text-editor.css';
+
 const TextEditor: React.FC = () => {
 
     const [MDvalue, setMDValue] = useState<string | undefined>('# EditMode');
@@ -24,17 +26,22 @@ const TextEditor: React.FC = () => {
 
     if(editMode) {
         return (
-            <div ref={ref}>
+            <div ref={ref} className='text-editor'>
                 <MDEditor 
+                    
                     value={MDvalue}
                     onChange={setMDValue}
+                    style={{color: 'black !important'}}
                 />
             </div>
         )
     } else {
         return (
-            <div onClick={() => setEditMode(true)}>
-                <MDEditor.Markdown source={MDvalue} />
+            <div onClick={() => setEditMode(true)} className='text-editor card'>
+                <div className="card-content">
+                    <MDEditor.Markdown source={MDvalue} />
+                </div>
+                
             </div>
         )
     }
