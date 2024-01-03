@@ -16,6 +16,7 @@
     "@types/node": "^20.10.6",
     "@types/prettier": "^3.0.0",
     "@types/react-resizable": "^3.0.7",
+    "@uiw/react-md-editor": "^4.0.2",
     "axios": "^1.6.3",
     "bulmaswatch": "^0.8.1",
     "esbuild-wasm": "^0.19.10",
