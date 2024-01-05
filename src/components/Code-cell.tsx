@@ -8,7 +8,7 @@ import { Cell } from '../state';
 import bundler from '../bundler';''
 
 const CodeCellStyles: React.CSSProperties = {
-    height: '100%',
+    height: 'calc(100% - 10px)',
     display: 'flex',
     flexDirection: 'row'
 }

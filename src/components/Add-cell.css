@@ -1,0 +1,36 @@
+.add-cell {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0;
+  opacity: 0.4;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.add-cell.force-visible {
+  opacity: 1;
+}
+
+.add-cell:hover,
+.add-cell:focus-within {
+  opacity: 1;
+}
+
+.add-cell button {
+  margin: 0 10px;
+}
+
+.add-cell button {
+  margin: 0 10px;
+}
+
+.add-cell .divider {
+  position: absolute;
+  top: 50%;
+  bottom: 50%;
+  border-bottom: 1px solid grey;
+  width: 95%;
+  z-index: -1;
+}
