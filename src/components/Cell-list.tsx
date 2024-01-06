@@ -10,22 +10,18 @@ const CellList: React.FC = () => {
     const { data, order } = useTypedSelector((state) => state.cells);
     const cells = order.map((id) => data[id]);
 
-    const renderedCells = cells.map((cell, idx) => 
+    const renderedCells = cells.map((cell) => 
       <Fragment key={cell.id}>
-        {idx < cells.length - 1 ? <AddCell nextCellId={cell.id} /> : <AddCell nextCellId={null} />}
+        <AddCell nextCellId={cell.id} /> 
         <CellListItem cell={cell} />
       </Fragment>
       
     );
 
-    if(cells.length === 0) {
-      return <AddCell nextCellId={null} forceVisible={true}/>
-    }
-
   return (
     <div>
       {renderedCells}
-      <AddCell nextCellId={null} />
+      <AddCell nextCellId={null} forceVisible={cells.length === 0}/>
     </div>
   )
 }
