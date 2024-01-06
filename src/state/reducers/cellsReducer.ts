@@ -43,7 +43,7 @@ const reducer = produce((state: CellsState = initislState, action: Action ): Cel
         }
         case ActionType.INSERT_CELL_BEFORE: {
             const cell : Cell = {
-                content: '',
+                content: action.payload.type === 'code' ? '// write some javascript code...' : 'Click to edit with markdown...',
                 type: action.payload.type,
                 id: randomId()
             };

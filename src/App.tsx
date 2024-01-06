@@ -14,8 +14,6 @@ function App() {
         <CellList />
       </div>
     </Provider>
-
-
   )
 }
 

@@ -34,8 +34,7 @@ const TextEditor: React.FC<CodeCellProps> = ( {cell} ) => {
         return (
             <div ref={ref} className='text-editor'>
                 <MDEditor 
-                    
-                    value={cell.content || 'Click to edit...'}
+                    value={cell.content}
                     onChange={(value) => updateCell(cell.id, value || '')}
                     style={{color: 'black !important'}}
                 />
@@ -45,7 +44,7 @@ const TextEditor: React.FC<CodeCellProps> = ( {cell} ) => {
         return (
             <div onClick={() => setEditMode(true)} className='text-editor card'>
                 <div className="card-content">
-                    <MDEditor.Markdown source={cell.content || 'Click to edit...'} />
+                    <MDEditor.Markdown source={cell.content} />
                 </div>
                 
             </div>

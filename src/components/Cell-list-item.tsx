@@ -17,8 +17,7 @@ const CellListItem: React.FC<CellListItemProps> = ({cell}) => {
             <div className="action-bar-wrapper">
                 <ActionBar id={cell.id}/>
             </div>
-            <CodeCell cell={cell}/>
-            
+            <CodeCell cell={cell}/> 
         </>
     } else {
         child = 
@@ -31,8 +30,6 @@ const CellListItem: React.FC<CellListItemProps> = ({cell}) => {
   return (
     <div className='cell-list-item'>
         {child}
-        
-        
     </div>
   )
 }
