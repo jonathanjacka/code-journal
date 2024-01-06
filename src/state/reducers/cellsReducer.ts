@@ -41,7 +41,7 @@ const reducer = produce((state: CellsState = initislState, action: Action ): Cel
             state.order[targetIndex] = action.payload.id;
             return state;
         }
-        case ActionType.INSERT_CELL_BEFORE: {
+        case ActionType.INSERT_CELL_AFTER: {
             const cell : Cell = {
                 content: action.payload.type === 'code' ? '// write some javascript code...' : 'Click to edit with markdown...',
                 type: action.payload.type,
@@ -50,9 +50,9 @@ const reducer = produce((state: CellsState = initislState, action: Action ): Cel
             state.data[cell.id] = cell;
             const foundIndex = state.order.findIndex(id => id === action.payload.id);
             if (foundIndex < 0) {
-                state.order.push(cell.id);
+                state.order.unshift(cell.id);
             } else {
-                state.order.splice(foundIndex, 0, cell.id);
+                state.order.splice(foundIndex + 1, 0, cell.id);
             }
             return state;
         }
