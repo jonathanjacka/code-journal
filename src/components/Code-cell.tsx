@@ -1,3 +1,4 @@
+import './Code-cell.css';
 import { useEffect } from 'react';
 import { useActions } from '../hooks/useActions';
 import CodeEditor from './Code-editor';
@@ -22,17 +23,15 @@ const CodeCell: React.FC<CodeCellProps> = ({ cell }) => {
 
     const { updateCell, createBundle } = useActions();
     const bundle = useTypedSelector((state) => state.bundles[cell.id]);
-    console.log(bundle);
 
     useEffect(() => {
         const timer = setTimeout(async () => {
             createBundle(cell.id, cell.content);
         }, BUNDLER_DELAY);
-
         return () => {
             clearTimeout(timer);
         }
-    }, [cell.id, cell.content, createBundle]);
+    }, [ cell.id, cell.content, createBundle ]);
 
     return (
         <Resizable direction='vertical'>
@@ -40,7 +39,15 @@ const CodeCell: React.FC<CodeCellProps> = ({ cell }) => {
                 <Resizable direction='horizontal'>
                     <CodeEditor defaultValue={cell.content} onChange={(value) => updateCell(cell.id, value)}/>
                 </Resizable>
-                {bundle && <Preview code={bundle.code} bundleStatus={bundle.error}/>}
+                {!bundle || bundle.loading ? 
+                    <div className="progress-cover">
+                        <progress className='progress is-small is-primary' max="100">
+                            Loading    
+                        </progress>   
+                    </div>
+                    :
+                    <Preview code={bundle.code} bundleStatus={bundle.error}/>
+                }
             </div>
         </Resizable>
   )
