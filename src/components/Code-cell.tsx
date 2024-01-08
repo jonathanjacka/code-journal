@@ -1,11 +1,11 @@
-import { useState, useEffect } from 'react';
+import './Code-cell.css';
+import { useEffect } from 'react';
 import { useActions } from '../hooks/useActions';
 import CodeEditor from './Code-editor';
 import Preview from './Preview';
 import Resizable from './Resizable';
 import { Cell } from '../state';
-
-import bundler from '../bundler';''
+import { useTypedSelector } from '../hooks/useTypedSelector';
 
 const CodeCellStyles: React.CSSProperties = {
     height: 'calc(100% - 10px)',
@@ -21,22 +21,17 @@ const BUNDLER_DELAY = 1500;
 
 const CodeCell: React.FC<CodeCellProps> = ({ cell }) => {
 
-    const { updateCell } = useActions();
-
-    const [code, setCode] = useState<string>('');
-    const [bundleStatus, setBundleStatus] = useState<string>('');
+    const { updateCell, createBundle } = useActions();
+    const bundle = useTypedSelector((state) => state.bundles[cell.id]);
 
     useEffect(() => {
         const timer = setTimeout(async () => {
-            const output = await bundler(cell.content);
-            setCode(output.code);
-            setBundleStatus(output.error);
+            createBundle(cell.id, cell.content);
         }, BUNDLER_DELAY);
-
         return () => {
             clearTimeout(timer);
         }
-    }, [cell.content]);
+    }, [ cell.id, cell.content, createBundle ]);
 
     return (
         <Resizable direction='vertical'>
@@ -44,7 +39,19 @@ const CodeCell: React.FC<CodeCellProps> = ({ cell }) => {
                 <Resizable direction='horizontal'>
                     <CodeEditor defaultValue={cell.content} onChange={(value) => updateCell(cell.id, value)}/>
                 </Resizable>
-                <Preview code={code} bundleStatus={bundleStatus}/>
+                <div className='progress-wrapper'>
+                {!bundle || bundle.loading ? 
+                   ( 
+                        <div className="progress-cover">
+                            <progress className='progress is-small is-primary' max="100">
+                                Loading    
+                            </progress>   
+                        </div>
+                   )
+                    :
+                    (<Preview code={bundle.code} bundleStatus={bundle.error}/>)
+                }
+                </div> 
             </div>
         </Resizable>
   )
