@@ -39,15 +39,19 @@ const CodeCell: React.FC<CodeCellProps> = ({ cell }) => {
                 <Resizable direction='horizontal'>
                     <CodeEditor defaultValue={cell.content} onChange={(value) => updateCell(cell.id, value)}/>
                 </Resizable>
+                <div className='progress-wrapper'>
                 {!bundle || bundle.loading ? 
-                    <div className="progress-cover">
-                        <progress className='progress is-small is-primary' max="100">
-                            Loading    
-                        </progress>   
-                    </div>
+                   ( 
+                        <div className="progress-cover">
+                            <progress className='progress is-small is-primary' max="100">
+                                Loading    
+                            </progress>   
+                        </div>
+                   )
                     :
-                    <Preview code={bundle.code} bundleStatus={bundle.error}/>
+                    (<Preview code={bundle.code} bundleStatus={bundle.error}/>)
                 }
+                </div> 
             </div>
         </Resizable>
   )
