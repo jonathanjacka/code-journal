@@ -1,5 +1,5 @@
 import './Code-cell.css';
-import { useEffect } from 'react';
+import { useEffect, useCallback } from 'react';
 import { useActions } from '../hooks/useActions';
 import CodeEditor from './Code-editor';
 import Preview from './Preview';
@@ -23,15 +23,30 @@ const CodeCell: React.FC<CodeCellProps> = ({ cell }) => {
 
     const { updateCell, createBundle } = useActions();
     const bundle = useTypedSelector((state) => state.bundles[cell.id]);
+    const { data, order } = useTypedSelector((state) => state.cells);
+
+    const cumulativeCode = useCallback(() => {
+        const orderedCells = order.map(id => data[id]);
+        const cumulativeCode = [];
+        for(const c of orderedCells){
+            if(c.type === 'code'){
+                cumulativeCode.push(c.content);
+            }
+            if(c.id === cell.id){
+                break;
+            }
+        }
+        return cumulativeCode;
+    }, [order, data, cell.id]);
 
     useEffect(() => {
         const timer = setTimeout(async () => {
-            createBundle(cell.id, cell.content);
+            createBundle(cell.id, cumulativeCode().join('\n'));
         }, BUNDLER_DELAY);
         return () => {
             clearTimeout(timer);
         }
-    }, [ cell.id, cell.content, createBundle ]);
+    }, [ cell.id, cumulativeCode, createBundle ]);
 
     return (
         <Resizable direction='vertical'>
