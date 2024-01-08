@@ -6,7 +6,7 @@ import prettier from 'prettier/standalone';
 import babelPlugin from "prettier/plugins/babel";
 import estreePlugin from "prettier/plugins/estree";
 
-import './code-editor.css';
+import './Code-editor.css';
 
 interface CodeEditorProps {
     height?: string,
