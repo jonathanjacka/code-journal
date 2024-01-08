@@ -1,7 +1,5 @@
 .cell-list-item {
   position: relative;
-  /* TODO: Remove margin eventually */
-  margin: 20px;
 }
 
 .action-bar-wrapper {
