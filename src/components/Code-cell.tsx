@@ -1,11 +1,12 @@
 import './Code-cell.css';
-import { useEffect, useCallback } from 'react';
+import { useEffect } from 'react';
 import { useActions } from '../hooks/useActions';
 import CodeEditor from './Code-editor';
 import Preview from './Preview';
 import Resizable from './Resizable';
 import { Cell } from '../state';
 import { useTypedSelector } from '../hooks/useTypedSelector';
+import { useCumulativeCode } from '../hooks/useCumulativeCode';
 
 const CodeCellStyles: React.CSSProperties = {
     height: 'calc(100% - 10px)',
@@ -23,49 +24,11 @@ const CodeCell: React.FC<CodeCellProps> = ({ cell }) => {
 
     const { updateCell, createBundle } = useActions();
     const bundle = useTypedSelector((state) => state.bundles[cell.id]);
-    const { data, order } = useTypedSelector((state) => state.cells);
-
-    const cumulativeCode = useCallback(() => {
-        const orderedCells = order.map(id => data[id]);
-
-        const showFunction = `
-            import _React from 'react';
-            import _ReactDOM from 'react-dom';
-            var show = (value) => {
-                const root = document.querySelector('#root');
-                if(typeof value === 'object'){
-                    if(value.$$typeof && value.props){
-                        _ReactDOM.render(value, root);
-                    }else{
-                        root.innerHTML = JSON.stringify(value);
-                    }
-                }else{
-                    root.innerHTML = value;
-                }
-            }
-        `;
-        const showFunctionNoOp = 'var show = () => {}';
-
-        const cumulativeCode = [];
-        for(const c of orderedCells){
-            if(c.type === 'code'){
-                if(c.id === cell.id){
-                    cumulativeCode.push(showFunction);
-                }else{
-                    cumulativeCode.push(showFunctionNoOp);
-                }
-                cumulativeCode.push(c.content);
-            }
-            if(c.id === cell.id){
-                break;
-            }
-        }
-        return cumulativeCode;
-    }, [order, data, cell.id]);
-
+    const cumulativeCode = useCumulativeCode(cell.id);
+    
     useEffect(() => {
         const timer = setTimeout(async () => {
-            createBundle(cell.id, cumulativeCode().join('\n'));
+            createBundle(cell.id, cumulativeCode());
         }, BUNDLER_DELAY);
         return () => {
             clearTimeout(timer);
