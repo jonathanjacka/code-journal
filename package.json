@@ -7,8 +7,10 @@
   "description": "Browser-based application for writing JavaScript code snippets with MD notes",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "web-app": "cd packages/local-client && npm run dev"
+    "cli": "cd packages/cli && npm start",
+    "local-api": "cd packages/local-api && npm start",
+    "client": "cd packages/local-client && npm run dev",
+    "start": "npx lerna run start --parallel"
   },
   "author": "Jonathan Jacka",
   "license": "ISC",
