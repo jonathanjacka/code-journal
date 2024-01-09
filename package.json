@@ -11,5 +11,9 @@
     "web-app": "cd packages/local-client && npm run dev"
   },
   "author": "Jonathan Jacka",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {},
+  "devDependencies": {
+    "lerna": "^8.0.2"
+  }
 }
