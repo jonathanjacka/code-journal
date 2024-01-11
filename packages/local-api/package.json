@@ -1,7 +1,7 @@
 {
   "name": "local-api",
   "version": "1.0.0",
-  "description": "",
+  "description": "## A browser-based code editor and note taker.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
@@ -17,6 +17,7 @@
     "cors": "^2.8.5",
     "express": "^4.18.2",
     "http-proxy-middleware": "^2.0.6",
-    "typescript": "^5.3.3"
+    "typescript": "^5.3.3",
+    "local-client": "file:../local-client"
   }
 }

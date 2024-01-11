@@ -1,11 +1,11 @@
 {
   "name": "cli",
   "version": "1.0.0",
-  "description": "",
+  "description": "## A browser-based code editor and note taker.",
   "scripts": {
     "start": "tsc --watch --preserveWatchOutput"
   },
-  "author": "",
+  "author": "Jonathan Jacka",
   "license": "ISC",
   "dependencies": {
     "chalk": "^4.1.2",

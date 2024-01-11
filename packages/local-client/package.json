@@ -1,5 +1,5 @@
 {
-  "name": "code-journal",
+  "name": "local-client",
   "description": "## A browser-based code editor and note taker.",
   "main": "index.js",
   "author": "Jonathan Jacka",
