@@ -3,8 +3,9 @@ const path = require('path');
 import chalk from 'chalk';
 import { createProxyMiddleware } from 'http-proxy-middleware';
 
+import { createCellsRouter } from './routes/cells';
 
-const PROXY_PORT = 5173;
+const WEB_APP_PORT = 5173;
 
 export const serve = (
     port: number, 
@@ -17,7 +18,7 @@ export const serve = (
 
     if(useDevProxy) {
         app.use(createProxyMiddleware({
-            target: `http://localhost:${PROXY_PORT}`,
+            target: `http://localhost:${WEB_APP_PORT}`,
             ws: true,
             logLevel: 'silent'
         }));
@@ -25,6 +26,9 @@ export const serve = (
         const packagePath = require.resolve('local-client/dist/index.html');
         app.use(express.static(path.dirname(packagePath)));
     }
+
+    //ROUTES
+    app.use(createCellsRouter(filename, dir));
 
     return new Promise<void>((resolve, reject) => {
         app.listen(port, () => {
