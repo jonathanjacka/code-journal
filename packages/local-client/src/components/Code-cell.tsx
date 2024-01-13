@@ -33,7 +33,7 @@ const CodeCell: React.FC<CodeCellProps> = ({ cell }) => {
         return () => {
             clearTimeout(timer);
         }
-    }, [ cell.id, cumulativeCode, createBundle ]);
+    }, [ cell.id, cumulativeCode, createBundle]);
 
     return (
         <Resizable direction='vertical'>
