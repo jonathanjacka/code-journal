@@ -5,6 +5,7 @@ import { useActions } from '../hooks/useActions';
 import { Fragment } from 'react';
 import AddCell from './Add-cell';
 import CellListItem from './Cell-list-item';
+import { setupBundler } from '../bundler';
 
 const CellList: React.FC = () => {
     
@@ -16,6 +17,7 @@ const CellList: React.FC = () => {
     useEffect(() => {  
       if(!fetchRef.current) {
         fetchCells();
+        setupBundler();
         fetchRef.current = true;
       }
     }, [fetchCells]);
