@@ -26,7 +26,7 @@ export const serve = (
             logLevel: 'silent'
         }));
     } else {
-        const packagePath = require.resolve('local-client/dist/index.html');
+        const packagePath = require.resolve('@code-journal/local-client/dist/index.html');
         app.use(express.static(path.dirname(packagePath)));
     }
 

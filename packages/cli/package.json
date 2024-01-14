@@ -1,16 +1,19 @@
 {
-  "name": "cli",
+  "name": "code-journal",
   "version": "1.0.0",
+  "author": "Jonathan Jacka",
+  "license": "ISC",
   "description": "## A browser-based code editor and note taker.",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "start": "tsc --watch --preserveWatchOutput"
   },
-  "author": "Jonathan Jacka",
-  "license": "ISC",
   "dependencies": {
     "chalk": "^4.1.2",
     "commander": "^11.1.0",
-    "local-api": "file:../local-api",
+    "@code-journal/local-api": "file:../local-api",
     "typescript": "^5.3.3"
   }
 }

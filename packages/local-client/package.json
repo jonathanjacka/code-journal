@@ -1,12 +1,14 @@
 {
-  "name": "local-client",
-  "description": "## A browser-based code editor and note taker.",
+  "name": "@code-journal/local-client",
+  "description": "## Client UI for code-journal, a browser-based code editor and note taker.",
   "main": "index.js",
   "author": "Jonathan Jacka",
   "license": "ISC",
-  "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "dev": "vite",
     "start": "vite",
