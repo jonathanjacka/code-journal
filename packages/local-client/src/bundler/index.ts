@@ -3,7 +3,6 @@ import esbuild from 'esbuild-wasm';
 import { unpkgPathPlugin } from './plugins/unpkg-path-plugin';
 import { fetchPlugin } from './plugins/fetch-plugin';
 
-
 //Solution to the problem of multiple initializations of esbuild - https://kristiansigston.medium.com/initializing-esbuild-wasm-84a26b405f12
 let waiting: Promise<void>;
 
@@ -16,7 +15,6 @@ export const setupBundler = async () => {
   }
   return waiting;
 };
-
 
 const bundler = async (inputCode: string) => {
 
