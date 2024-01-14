@@ -17,7 +17,7 @@
     "prepublishOnly": "tsc"
   },
   "dependencies": {
-    "@code-journal/local-client": "file:../local-client",
+    "@code-journal/local-client": "^1.0.0",
     "@types/cors": "^2.8.17",
     "@types/express": "^4.17.21",
     "chalk": "^4.1.2",
@@ -27,5 +27,6 @@
   },
   "devDependencies": {
     "typescript": "^5.3.3"
-  }
+  },
+  "gitHead": "e75172b14e74024939e81e561c506022495b72aa"
 }

@@ -1,5 +1,5 @@
 {
-  "name": "code-journal",
+  "name": "@jonathanjacka/code-journal",
   "workspaces": [
     "packages/*"
   ],

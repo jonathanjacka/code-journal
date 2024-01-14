@@ -16,13 +16,14 @@
     "prepublishOnly": "esbuild src/index.ts --platform=node --outfile=dist/index.js --bundle --minify --define:process.env.NODE_ENV=\\\"production\\\""
   },
   "dependencies": {
-    "@code-journal/local-client": "file:../local-client"
+    "@code-journal/local-client": "^1.0.0"
   },
   "devDependencies": {
-    "@code-journal/local-api": "file:../local-api",
+    "@code-journal/local-api": "^1.0.0",
     "chalk": "^4.1.2",
     "commander": "^11.1.0",
     "esbuild": "^0.19.11",
     "typescript": "^5.3.3"
-  }
+  },
+  "gitHead": "e75172b14e74024939e81e561c506022495b72aa"
 }
