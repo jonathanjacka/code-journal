@@ -1,16 +1,28 @@
 {
-  "name": "cli",
+  "name": "code-journal",
   "version": "1.0.0",
-  "description": "## A browser-based code editor and note taker.",
-  "scripts": {
-    "start": "tsc --watch --preserveWatchOutput"
-  },
   "author": "Jonathan Jacka",
   "license": "ISC",
+  "description": "## A browser-based code editor and note taker.",
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "bin": "dist/index.js",
+  "scripts": {
+    "start": "tsc --watch --preserveWatchOutput",
+    "prepublishOnly": "esbuild src/index.ts --platform=node --outfile=dist/index.js --bundle --minify --define:process.env.NODE_ENV=\\\"production\\\""
+  },
   "dependencies": {
+    "@code-journal/local-client": "file:../local-client"
+  },
+  "devDependencies": {
+    "typescript": "^5.3.3",
+    "@code-journal/local-api": "file:../local-api",
     "chalk": "^4.1.2",
     "commander": "^11.1.0",
-    "local-api": "file:../local-api",
-    "typescript": "^5.3.3"
+    "esbuild": "^0.19.11"
   }
 }

@@ -1,15 +1,21 @@
 {
-  "name": "local-api",
+  "name": "@code-journal/local-api",
   "version": "1.0.0",
-  "description": "## A browser-based code editor and note taker.",
+  "description": "## Local api used to serve code-journal, a browser-based code editor and note taker.",
+  "author": "Jonathan Jacka",
+  "license": "ISC",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "start": "tsc --watch --preserveWatchOutput",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "prepublishOnly": "tsc"
   },
-  "author": "",
-  "license": "ISC",
   "dependencies": {
     "@types/cors": "^2.8.17",
     "@types/express": "^4.17.21",
@@ -17,7 +23,9 @@
     "cors": "^2.8.5",
     "express": "^4.18.2",
     "http-proxy-middleware": "^2.0.6",
-    "typescript": "^5.3.3",
-    "local-client": "file:../local-client"
+    "@code-journal/local-client": "file:../local-client"
+  },
+  "devDependencies": {
+    "typescript": "^5.3.3"
   }
 }
