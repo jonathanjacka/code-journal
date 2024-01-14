@@ -17,13 +17,13 @@
     "prepublishOnly": "tsc"
   },
   "dependencies": {
+    "@code-journal/local-client": "file:../local-client",
     "@types/cors": "^2.8.17",
     "@types/express": "^4.17.21",
     "chalk": "^4.1.2",
     "cors": "^2.8.5",
     "express": "^4.18.2",
-    "http-proxy-middleware": "^2.0.6",
-    "@code-journal/local-client": "file:../local-client"
+    "http-proxy-middleware": "^2.0.6"
   },
   "devDependencies": {
     "typescript": "^5.3.3"
