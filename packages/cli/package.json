@@ -10,18 +10,19 @@
   "publishConfig": {
     "access": "public"
   },
-  "bin": 
-    "dist/index.js",
+  "bin": "dist/index.js",
   "scripts": {
     "start": "tsc --watch --preserveWatchOutput",
-    "prepublishOnly": "tsc"
+    "prepublishOnly": "esbuild src/index.ts --platform=node --outfile=dist/index.js --bundle --minify --define:process.env.NODE_ENV=\\\"production\\\""
   },
   "dependencies": {
-    "chalk": "^4.1.2",
-    "commander": "^11.1.0",
-    "@code-journal/local-api": "file:../local-api"
+    "@code-journal/local-client": "file:../local-client"
   },
   "devDependencies": {
-    "typescript": "^5.3.3"
+    "typescript": "^5.3.3",
+    "@code-journal/local-api": "file:../local-api",
+    "chalk": "^4.1.2",
+    "commander": "^11.1.0",
+    "esbuild": "^0.19.11"
   }
 }
