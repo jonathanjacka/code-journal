@@ -7,13 +7,21 @@
   "files": [
     "dist"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "bin": 
+    "dist/index.js",
   "scripts": {
-    "start": "tsc --watch --preserveWatchOutput"
+    "start": "tsc --watch --preserveWatchOutput",
+    "prepublishOnly": "tsc"
   },
   "dependencies": {
     "chalk": "^4.1.2",
     "commander": "^11.1.0",
-    "@code-journal/local-api": "file:../local-api",
+    "@code-journal/local-api": "file:../local-api"
+  },
+  "devDependencies": {
     "typescript": "^5.3.3"
   }
 }
