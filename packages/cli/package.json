@@ -1,5 +1,5 @@
 {
-  "name": "code-journal",
+  "name": "@code-journal/cli",
   "version": "1.0.0",
   "author": "Jonathan Jacka",
   "license": "ISC",
@@ -25,5 +25,5 @@
     "esbuild": "^0.19.11",
     "typescript": "^5.3.3"
   },
-  "gitHead": "e75172b14e74024939e81e561c506022495b72aa"
+  "gitHead": "861ea920eb18e5f984535f2efa9e7d6c9cad8c47"
 }
