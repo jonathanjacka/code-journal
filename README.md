@@ -2,7 +2,7 @@
 
 ## A browser-based, multi-cell JavaScript code-editor and MD note-taker
 
-![demo](https://github.com/jonathanjacka/code-journal/main/demoScreen1.png?raw=true)
+![demo](/demoScreen1.png?raw=true)
 
 ### To Install/Run:
 
